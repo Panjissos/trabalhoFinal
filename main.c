@@ -24,16 +24,15 @@ int main(int argc, char *argv[])
     DIR *dir;
     struct dirent *lsdir;
 
-    dir = opendir("../oncotex_pgm");
+    dir = opendir("./imgs/oncotex_pgm/");
 
     int count = 0;
     /* print all the files and directories within directory */
     while ((lsdir = readdir(dir)) != NULL)
     {
-        strcpy(fileNames[count], "../");
+        strcpy(fileNames[count], "./imgs/oncotex_pgm/");
         strcat(fileNames[count], lsdir->d_name);
         count++;
-        puts("miau");
     }
 
     for (int i = 2; i < count; i++)
@@ -53,7 +52,6 @@ int main(int argc, char *argv[])
         {
             // printf("%d, ", *(hist+i));
             fprintf(arquivoCVS, "%d,", *(hist + i));
-            puts("miau");
         }
 
         fprintf(arquivoCVS, "%c\n", fileNames[1]);
