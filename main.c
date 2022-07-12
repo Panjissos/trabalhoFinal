@@ -1,3 +1,6 @@
+#include "inc.h"
+#include "pgm.h"
+#include "prop.h"
 #include "lib.h"
 
 int main(int argc, char *argv[])

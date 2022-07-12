@@ -1,38 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <dirent.h>
-#include <string.h>
-#define TAMCHAR 256
-#define MAXF 1000
-#define MAXN 100
-#define T 8
-
-struct pgm{
-	int tipo;
-	int c;
-	int r;
-	int mv;
-	unsigned char *pData;
-};
-//criação das váriaveis que serão utilizadas na main
-struct pgm img;
-struct pgm *filterImg;
-unsigned char *hist;
-char nomeArquivo[MAXF][MAXN];
-DIR *dir;
-struct dirent *pImgArq;
-int iArquivo = 0;
-char identificador[TAMCHAR];
-
-
-void filtrolbp(struct pgm *, struct pgm *);
-void histograma(unsigned char *, int , int , unsigned char *);
-void readPGMImage(struct pgm *, char *);
-void writePGMImage(struct pgm *, char *);
-void viewPGMImage(struct pgm *);
-void histogramaCSV(const unsigned char *const , char *const, char *);
-
 void readPGMImage(struct pgm *pio, char *filename)
 {
 
