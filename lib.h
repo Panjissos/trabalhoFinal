@@ -125,47 +125,43 @@ void filtrolbp(struct pgm *img, struct pgm *imgFiltro)
 
     // Execução do filtro LBP
     int l = imgFiltro->r, c = imgFiltro->c;  // linhas e colunas
-    unsigned char soma, bjanela; // soma dos bits das janelas e bit da janela
-    int j, k, sent, pos, aux;    // j = posição linha, k = posição coluna, sent = sentido
-                                 // de rotação, pos = posição do bit na janela
+    unsigned char soma, pixelMatriz; // soma dos bits das janelas e bit da janela
+    int j, k, s, pos;    // j = posição linha, k = posição coluna, s = sentido
+    // de rotação, pos = posição do bit na janela
 
     for (int i = 0; i < l * c; i++)
     { // i = posição ponteiro inicial
-        soma = 0, j = -1, k = -1, sent = 1, pos = 0;//mantido
+        soma = 0, j = -1, k = -1, s = 1, pos = 0;//mantido
                
         for (int p = 0; p < T; p++)        
         {
-            bjanela = 0; // Valor da janela de filtro, 0 para fora da matriz
-
-            if ((i < c && j == -1) || (!(i % c) && k == -1) || (i > (l * c) - c && j == 1) || (!((i + 1) % c) && k == 1));
-            
-            else bjanela = *(img->pData + i + k + j * c);//atualiza a janela fora da matriz, com a 0, pois foi alocada antes com zeros
-            
-            if (bjanela >= *(img->pData + i)) soma += pow(2, pos);
-            
+            pixelMatriz = ((i < c && j == -1) || (!(i % c) && k == -1) || (i > (l * c) - c && j == 1) || (!((i + 1) % c) && k == 1)) ? 0 : *(img->pData + i + k + j * c);
+            //no primeiro caso, verifica se esta nas quinas da matriz, pois n tera um valor prévio inserido na janela do filtro, caso sim o pixel atual é preenchido com 0, se não é inserido o valor referente a coordenada do pixel
+            if (pixelMatriz >= *(img->pData + i)) soma += pow(2, pos);//caso em que se tem a comparação do pixel da janela com o pixel central, que pertence a imagem original        
+         
             pos++;
 
-            switch (sent)
-            { // J e K desloca a janela, sent Muda o Sentido da janela
+            switch (s)
+            { // J e K desloca a janela, s Muda o sido da janela
             case 1:
                 k++;
                 if (k == 1)
-                    sent++;
+                    s++;
                 break;
             case 2:
                 j++;
                 if (j == 1)
-                    sent++;
+                    s++;
                 break;
             case 3:
                 k--;
                 if (k == -1)
-                    sent++;
+                    s++;
                 break;
             case 4:
                 j--;
                 if (j == -1)
-                    sent++;
+                    s++;
                 break;
             }
         }
