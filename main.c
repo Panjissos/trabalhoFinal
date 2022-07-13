@@ -9,16 +9,17 @@ int main(int argc, char *argv[])
 
     dir = opendir("./imgs/");
 
-    if (dir)
+    if (dir !=  NULL)
     {
-        while ((pImgArq = readdir(dir)) != NULL)
-        {
-
+        for(;;){
+            pImgArq = readdir(dir);
+            if ( pImgArq == NULL) break;
             strcpy(nomeArquivo[iArquivo], "./imgs/");
             identificador[iArquivo] = pImgArq->d_name[0];
             strcat(nomeArquivo[iArquivo], pImgArq->d_name);
             iArquivo++;
         }
+
     }
 
     for (int i = 2; i < iArquivo; i++)

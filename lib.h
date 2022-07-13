@@ -118,15 +118,13 @@ void histogramaCSV(const unsigned char *hist, char *const nomeArquivo, char * id
 
 void filtrolbp(struct pgm *img, struct pgm *imgFiltro)
 {
-    // Filtro LBP. Janela de 8 bits. Método Comparativo
-    // Prenchimento da estrutura
+    
     imgFiltro->tipo = 5;
     imgFiltro->r = img->r;
     imgFiltro->c = img->c;
     imgFiltro->mv = 255;
     imgFiltro->pData = (unsigned char *)calloc(imgFiltro->r * imgFiltro->c, sizeof(unsigned char));
 
-    // Execução do filtro LBP
     int l = imgFiltro->r, c = imgFiltro->c;  // linhas e colunas
     unsigned char soma, pixelMatriz; // soma dos bits das janelas e bit da janela
     int j, k, s, pos=0;    // j = posição linha, k = posição coluna, s = sentido
@@ -145,7 +143,7 @@ void filtrolbp(struct pgm *img, struct pgm *imgFiltro)
             pos++;
 
             switch (s)
-            { // J e K desloca a janela, s Muda o sido da janela
+            {
             case 1:
                 k++;
                 if (k == 1)
